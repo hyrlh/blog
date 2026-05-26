@@ -4,7 +4,7 @@ menu:
   搜索: /search/
 
 rss: /atom.xml
-banner: "images/xilian.jpg"
+banner: "css/images/xilian.jpg"
 subtitle: 专注记录值得沉淀的内容
 links:
   github: https://github.com/hyrlh

@@ -94,8 +94,28 @@
     renderEmpty('输入关键词后开始搜索。');
   }
 
+  function initDocsTreeState() {
+    var treeItems = document.querySelectorAll('.docs-tree-category');
+    if (!treeItems.length) return;
+
+    treeItems.forEach(function(item) {
+      var key = item.getAttribute('data-category-key');
+      var details = item.querySelector('details');
+      if (!key || !details) return;
+
+      var saved = window.localStorage.getItem('docs-tree:' + key);
+      if (saved === 'open') details.open = true;
+      if (saved === 'closed') details.open = false;
+
+      details.addEventListener('toggle', function() {
+        window.localStorage.setItem('docs-tree:' + key, details.open ? 'open' : 'closed');
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     initGiscus();
     initLocalSearch();
+    initDocsTreeState();
   });
 })();

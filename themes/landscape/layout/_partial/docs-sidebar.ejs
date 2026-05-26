@@ -8,13 +8,9 @@
     <nav class="docs-tree">
       <ul class="docs-tree-root">
         <% site.categories.sort('name').each(function(category){ %>
-          <% var categoryActive = false; %>
-          <% if (page.category && page.category === category.name) { categoryActive = true; } %>
-          <% if (page.categories && page.categories.length) { %>
-            <% page.categories.each(function(cat){ if (cat.name === category.name) categoryActive = true; }) %>
-          <% } %>
-          <li class="docs-tree-category<%= categoryActive ? ' is-active' : '' %>">
-            <details <%= categoryActive ? 'open' : '' %>>
+          <% var categoryKey = 'category-' + category.slug; %>
+          <li class="docs-tree-category" data-category-key="<%= categoryKey %>">
+            <details>
               <summary>
                 <span class="docs-tree-category-label"><%= category.name %></span>
                 <span><%= category.length %></span>
