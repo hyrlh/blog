@@ -1,0 +1,39 @@
+menu:
+  首页: /
+  归档: /archives
+  搜索: /search/
+
+rss: /atom.xml
+banner: "images/banner.jpg"
+subtitle: 专注记录值得沉淀的内容
+links:
+  github: https://github.com/hyrlh
+
+excerpt_link: 阅读全文
+fancybox: true
+
+copyright: |-
+  &copy; 2026 hyrlh
+
+sidebar: right
+widgets:
+  - recent_posts
+  - archive
+  - category
+  - tag
+  - tagcloud
+
+archive_type: monthly
+show_count: false
+recent_posts_limits: 5
+
+google_analytics:
+gauges_analytics:
+favicon: /favicon.png
+twitter:
+fb_admins:
+fb_app_id:
+
+disqus_shortname:
+valine:
+  enable: false

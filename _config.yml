@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
+title: hyrlh 的博客
+subtitle: 记录技术、工具与生活
+description: 一个基于 Hexo 与 GitHub Pages 搭建的个人博客。
+keywords: 技术, 博客, Hexo, GitHub Pages
 author: hyrlh
 language: zh-CN
-timezone: ''
+timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -98,6 +98,29 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: landscape
+
+# Search
+search:
+  path: search.json
+  field: post
+  content: true
+  format: striptags
+
+# Comments
+giscus:
+  enable: true
+  repo: hyrlh/blog
+  repo_id: R_kgDOSoD0pA
+  category: General
+  category_id: ''
+  mapping: pathname
+  strict: '0'
+  reactions_enabled: '1'
+  emit_metadata: '0'
+  input_position: top
+  theme: preferred_color_scheme
+  lang: zh-CN
+  loading: lazy
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment

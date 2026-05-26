@@ -1,0 +1,57 @@
+<head>
+  <meta charset="utf-8">
+  <%- partial('google-analytics') %>
+  <%
+  var title = page.title;
+
+  if (is_archive()){
+    title = __('archive_a');
+
+    if (is_month()){
+      title += ': ' + page.year + '/' + page.month;
+    } else if (is_year()){
+      title += ': ' + page.year;
+    }
+  } else if (is_category()){
+    title = __('category') + ': ' + page.category;
+  } else if (is_tag()){
+    title = __('tag') + ': ' + page.tag;
+  }
+  %>
+  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
+  <% if (config.feed) { %>
+    <%- feed_tag() %>
+  <% } else if (theme.rss) { %>
+    <%- feed_tag(theme.rss) %>
+  <% } %>
+  <% if (theme.favicon){ %>
+    <%- favicon_tag(theme.favicon) %>
+  <% } %>
+  <% if (config.highlight.enable){ %>
+    <%- css('https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css') %>
+  <% } %>
+  <%- css('css/style') %>
+  <% if (theme.fancybox){ %>
+    <%- css('fancybox/jquery.fancybox.min.css') %>
+  <% } %>
+  <%- css('https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css') %>
+  <script>
+    window.__BLOG_SEARCH_PATH__ = '<%- url_for((config.search && config.search.path) || "search.json") %>';
+    window.__BLOG_GISCUS__ = {
+      repo: '<%= config.giscus && config.giscus.repo ? config.giscus.repo : "" %>',
+      repoId: '<%= config.giscus && config.giscus.repo_id ? config.giscus.repo_id : "" %>',
+      category: '<%= config.giscus && config.giscus.category ? config.giscus.category : "" %>',
+      categoryId: '<%= config.giscus && config.giscus.category_id ? config.giscus.category_id : "" %>',
+      mapping: '<%= config.giscus && config.giscus.mapping ? config.giscus.mapping : "pathname" %>',
+      strict: '<%= config.giscus && config.giscus.strict ? config.giscus.strict : "0" %>',
+      reactionsEnabled: '<%= config.giscus && config.giscus.reactions_enabled ? config.giscus.reactions_enabled : "1" %>',
+      emitMetadata: '<%= config.giscus && config.giscus.emit_metadata ? config.giscus.emit_metadata : "0" %>',
+      inputPosition: '<%= config.giscus && config.giscus.input_position ? config.giscus.input_position : "top" %>',
+      theme: '<%= config.giscus && config.giscus.theme ? config.giscus.theme : "preferred_color_scheme" %>',
+      lang: '<%= config.giscus && config.giscus.lang ? config.giscus.lang : "zh-CN" %>',
+      loading: '<%= config.giscus && config.giscus.loading ? config.giscus.loading : "lazy" %>'
+    };
+  </script>
+</head>
