@@ -16,7 +16,7 @@
           <li class="docs-tree-category<%= categoryActive ? ' is-active' : '' %>">
             <details <%= categoryActive ? 'open' : '' %>>
               <summary>
-                <a href="<%- url_for(category.path) %>"><%= category.name %></a>
+                <span class="docs-tree-category-label"><%= category.name %></span>
                 <span><%= category.length %></span>
               </summary>
               <ul class="docs-tree-posts">
