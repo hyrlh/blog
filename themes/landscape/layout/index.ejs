@@ -1,1 +1,31 @@
-<%- partial('_partial/archive', {expand: true, index: true}) %>
+<section class="docs-overview-panel">
+  <p class="docs-overview-kicker">文档首页</p>
+  <h2 class="docs-overview-title"><%= config.title %></h2>
+  <p class="docs-overview-summary"><%= config.description %></p>
+</section>
+
+<section class="docs-overview-panel">
+  <h3 class="docs-overview-heading">阅读方式</h3>
+  <p class="docs-overview-text">左侧是目录树，可以按分类展开文章列表。点击文章标题后，在右侧阅读具体内容。</p>
+  <div class="docs-overview-links">
+    <a href="<%- url_for('/archives/') %>">查看全部归档</a>
+    <a href="<%- url_for('/search/') %>">搜索内容</a>
+  </div>
+</section>
+
+<% site.categories.sort('name').each(function(category){ %>
+  <section class="docs-overview-panel docs-category-block">
+    <div class="docs-category-head">
+      <h3 class="docs-category-title"><a href="<%- url_for(category.path) %>"><%= category.name %></a></h3>
+      <span class="docs-category-count"><%= category.length %> 篇</span>
+    </div>
+    <ul class="docs-category-post-list">
+      <% category.posts.sort('date', -1).each(function(post){ %>
+        <li>
+          <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+          <time datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+        </li>
+      <% }) %>
+    </ul>
+  </section>
+<% }) %>

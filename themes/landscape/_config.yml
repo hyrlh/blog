@@ -3,8 +3,6 @@
 # ===============
 # Navigation menu
 menu:
-  Home: /
-  Archives: /archives
 # RSS link
 rss: /atom.xml
 # Path of title banner image of page top

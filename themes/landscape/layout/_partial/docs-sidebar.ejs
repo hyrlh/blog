@@ -1,0 +1,36 @@
+<aside class="docs-nav">
+  <div class="docs-nav-panel">
+    <div class="docs-nav-head">
+      <p class="docs-nav-kicker">文档结构</p>
+      <a class="docs-nav-home" href="<%- url_for('/') %>"><%= config.title %></a>
+    </div>
+
+    <nav class="docs-tree">
+      <ul class="docs-tree-root">
+        <% site.categories.sort('name').each(function(category){ %>
+          <% var categoryActive = false; %>
+          <% if (page.category && page.category === category.name) { categoryActive = true; } %>
+          <% if (page.categories && page.categories.length) { %>
+            <% page.categories.each(function(cat){ if (cat.name === category.name) categoryActive = true; }) %>
+          <% } %>
+          <li class="docs-tree-category<%= categoryActive ? ' is-active' : '' %>">
+            <details <%= categoryActive ? 'open' : '' %>>
+              <summary>
+                <a href="<%- url_for(category.path) %>"><%= category.name %></a>
+                <span><%= category.length %></span>
+              </summary>
+              <ul class="docs-tree-posts">
+                <% category.posts.sort('date', -1).each(function(post){ %>
+                  <% var isCurrentPost = page.path === post.path; %>
+                  <li class="docs-tree-post<%= isCurrentPost ? ' is-current' : '' %>">
+                    <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+                  </li>
+                <% }) %>
+              </ul>
+            </details>
+          </li>
+        <% }) %>
+      </ul>
+    </nav>
+  </div>
+</aside>

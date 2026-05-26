@@ -107,3 +107,211 @@ $base-style
 
 #comments
   margin-top: 2rem
+
+.docs-shell
+  display: flex
+  gap: 1.5rem
+  margin-top: block-margin
+  margin-bottom: 3rem
+  max-width: 1440px
+  @media mq-tablet
+    display: block
+  @media mq-mobile
+    display: block
+
+#main.docs-content
+  flex: 1
+  width: auto
+  max-width: none
+  float: none
+
+.docs-nav
+  width: 280px
+  flex: 0 0 280px
+  min-width: 0
+
+.docs-nav-panel
+  @extend $block
+  padding: 1.25rem 1rem
+  position: sticky
+  top: 20px
+  max-height: calc(100vh - 40px)
+  overflow: auto
+
+.docs-nav-kicker
+  margin: 0 0 0.75rem
+  font-size: 0.8rem
+  letter-spacing: 0.16em
+  text-transform: uppercase
+  color: #6b7c93
+
+.docs-nav-home
+  display: block
+  margin: 0
+  font-size: 1.6rem
+  line-height: 1.25
+  color: #1f2937
+  text-decoration: none
+  font-weight: bold
+  &:hover
+    color: color-link
+
+.docs-tree-root
+  list-style: none
+  margin: 1rem 0 0
+  padding: 0
+
+.docs-tree-category
+  border-top: 1px solid #eef2f7
+  padding-top: 0.8rem
+  margin-top: 0.8rem
+  &:first-child
+    border-top: none
+    padding-top: 0
+    margin-top: 0
+  &.is-active summary
+    background: #eff6ff
+
+.docs-tree-category details
+  display: block
+
+.docs-tree-category summary
+  list-style: none
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 0.6rem
+  padding: 0.55rem 0.65rem
+  border-radius: 8px
+  cursor: pointer
+  transition: background 0.2s ease
+  &::-webkit-details-marker
+    display: none
+  &:hover
+    background: #f8fafc
+  a
+    color: #334155
+    text-decoration: none
+    font-weight: 600
+    flex: 1
+  span
+    color: #94a3b8
+    font-size: 0.8rem
+
+.docs-tree-posts
+  list-style: none
+  margin: 0.5rem 0 0
+  padding: 0 0 0 0.5rem
+
+.docs-tree-post
+  margin: 0.2rem 0
+  a
+    display: block
+    padding: 0.45rem 0.7rem
+    border-radius: 7px
+    color: #475569
+    text-decoration: none
+    line-height: 1.55
+    &:hover
+      background: #f8fafc
+      color: color-link
+  &.is-current a
+    background: #e0f2fe
+    color: #0369a1
+    font-weight: 600
+
+.docs-overview-panel
+  @extend $block
+  padding: 1.4rem 1.5rem
+  margin-bottom: 1rem
+
+.docs-overview-kicker
+  margin: 0 0 0.7rem
+  font-size: 0.8rem
+  letter-spacing: 0.14em
+  text-transform: uppercase
+  color: #6b7c93
+
+.docs-overview-title
+  margin: 0
+  font-size: 2rem
+  color: #1f2937
+
+.docs-overview-summary
+  margin: 0.9rem 0 0
+  color: #5b6778
+  line-height: 1.8
+
+.docs-overview-heading
+  margin: 0
+  font-size: 1.1rem
+  color: #1f2937
+
+.docs-overview-text
+  margin: 0.8rem 0 0
+  color: #5b6778
+  line-height: 1.8
+
+.docs-overview-links
+  margin-top: 1rem
+  display: flex
+  flex-wrap: wrap
+  gap: 0.8rem
+  a
+    display: inline-block
+    padding: 0.65rem 0.95rem
+    background: #f4f7fb
+    border-radius: 999px
+    text-decoration: none
+    color: #334155
+    &:hover
+      color: color-link
+      background: #eaf1f8
+
+.docs-category-head
+  display: flex
+  justify-content: space-between
+  align-items: center
+  gap: 1rem
+  margin-bottom: 0.8rem
+
+.docs-category-title
+  margin: 0
+  font-size: 1.25rem
+  a
+    color: #1f2937
+    text-decoration: none
+    &:hover
+      color: color-link
+
+.docs-category-count
+  color: #94a3b8
+  font-size: 0.85rem
+
+.docs-category-post-list
+  list-style: none
+  margin: 0
+  padding: 0
+  li
+    display: flex
+    justify-content: space-between
+    gap: 1rem
+    align-items: baseline
+    padding: 0.75rem 0
+    border-top: 1px solid #eef2f7
+    &:first-child
+      border-top: none
+  a
+    color: #334155
+    text-decoration: none
+    line-height: 1.6
+    &:hover
+      color: color-link
+  time
+    color: #94a3b8
+    white-space: nowrap
+    font-size: 0.84rem
+
+.docs-empty
+  margin: 0
+  color: #64748b
