@@ -111,13 +111,13 @@ giscus:
   enable: true
   repo: hyrlh/blog
   repo_id: R_kgDOSoD0pA
-  category: General
-  category_id: ''
+  category: Announcements
+  category_id: DIC_kwDOSoD0pM4C93UU
   mapping: pathname
   strict: '0'
   reactions_enabled: '1'
   emit_metadata: '0'
-  input_position: top
+  input_position: bottom
   theme: preferred_color_scheme
   lang: zh-CN
   loading: lazy
