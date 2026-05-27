@@ -1,11 +1,46 @@
-<% site.categories.sort('name').each(function(category){ %>
+<%
+function renderOverview(node, level) {
+  var sectionClass = level === 0 ? 'docs-overview-panel docs-category-block' : 'docs-overview-panel docs-directory-block';
+%>
+  <section class="<%= sectionClass %>">
+    <div class="docs-category-head">
+      <h3 class="docs-category-title"><%= node.displayName %></h3>
+      <span class="docs-category-count"><%= node.dirs.length + node.posts.length %> 项</span>
+    </div>
+    <% if (node.posts.length) { %>
+      <ul class="docs-category-post-list">
+        <% node.posts.forEach(function(post){ %>
+          <li>
+            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+            <time datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+    <% if (node.dirs.length) { %>
+      <div class="docs-directory-children">
+        <% node.dirs.forEach(function(child){ %>
+          <%- renderOverview(child, level + 1) %>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+<% } %>
+
+<% var docsTree = build_docs_tree(site.posts); %>
+
+<% docsTree.dirs.forEach(function(dir){ %>
+  <%- renderOverview(dir, 0) %>
+<% }) %>
+
+<% if (docsTree.posts.length) { %>
   <section class="docs-overview-panel docs-category-block">
     <div class="docs-category-head">
-      <h3 class="docs-category-title"><a href="<%- url_for(category.path) %>"><%= category.name %></a></h3>
-      <span class="docs-category-count"><%= category.length %> 篇</span>
+      <h3 class="docs-category-title">根目录文章</h3>
+      <span class="docs-category-count"><%= docsTree.posts.length %> 篇</span>
     </div>
     <ul class="docs-category-post-list">
-      <% category.posts.sort('date', -1).each(function(post){ %>
+      <% docsTree.posts.forEach(function(post){ %>
         <li>
           <a href="<%- url_for(post.path) %>"><%= post.title %></a>
           <time datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
@@ -13,4 +48,4 @@
       <% }) %>
     </ul>
   </section>
-<% }) %>
+<% } %>

@@ -1,24 +1,51 @@
+<%
+function hasCurrentPost(node, currentPath) {
+  if (node.posts.some(function(post){ return post.path === currentPath; })) {
+    return true;
+  }
+
+  return node.dirs.some(function(child){
+    return hasCurrentPost(child, currentPath);
+  });
+}
+
+function renderDir(node, currentPath, level) {
+  var opened = hasCurrentPost(node, currentPath);
+%>
+  <li class="docs-tree-dir docs-tree-level-<%= level %>">
+    <details<%= opened ? ' open' : '' %>>
+      <summary>
+        <span class="docs-tree-dir-label"><%= node.displayName %></span>
+        <span><%= node.dirs.length + node.posts.length %></span>
+      </summary>
+      <ul class="docs-tree-children">
+        <% node.dirs.forEach(function(child){ %>
+          <%- renderDir(child, currentPath, level + 1) %>
+        <% }) %>
+        <% node.posts.forEach(function(post){ %>
+          <% var isCurrentPost = currentPath === post.path; %>
+          <li class="docs-tree-post docs-tree-level-<%= level + 1 %><%= isCurrentPost ? ' is-current' : '' %>">
+            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+          </li>
+        <% }) %>
+      </ul>
+    </details>
+  </li>
+<% } %>
+
+<% var docsTree = build_docs_tree(site.posts); %>
+
 <aside class="docs-nav">
   <div class="docs-nav-panel">
     <nav class="docs-tree">
       <ul class="docs-tree-root">
-        <% site.categories.sort('name').each(function(category){ %>
-          <% var categoryKey = 'category-' + category.slug; %>
-          <li class="docs-tree-category" data-category-key="<%= categoryKey %>">
-            <details>
-              <summary>
-                <span class="docs-tree-category-label"><%= category.name %></span>
-                <span><%= category.length %></span>
-              </summary>
-              <ul class="docs-tree-posts">
-                <% category.posts.sort('date', -1).each(function(post){ %>
-                  <% var isCurrentPost = page.path === post.path; %>
-                  <li class="docs-tree-post<%= isCurrentPost ? ' is-current' : '' %>">
-                    <a href="<%- url_for(post.path) %>"><%= post.title %></a>
-                  </li>
-                <% }) %>
-              </ul>
-            </details>
+        <% docsTree.dirs.forEach(function(dir){ %>
+          <%- renderDir(dir, page.path, 0) %>
+        <% }) %>
+        <% docsTree.posts.forEach(function(post){ %>
+          <% var isCurrentPost = page.path === post.path; %>
+          <li class="docs-tree-post docs-tree-level-0<%= isCurrentPost ? ' is-current' : '' %>">
+            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
           </li>
         <% }) %>
       </ul>
