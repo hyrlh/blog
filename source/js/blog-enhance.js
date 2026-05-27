@@ -1,43 +1,23 @@
 (function() {
   var CHECK_INTERVAL_MS = 60 * 1000;
 
-  function createUpdateBanner(onReload) {
-    var banner = document.createElement('div');
-    banner.className = 'site-update-banner';
-    banner.hidden = true;
-    banner.innerHTML = [
-      '<span class="site-update-banner__text">页面有更新。</span>',
-      '<button class="site-update-banner__button" type="button">点击刷新</button>'
-    ].join('');
-
-    var button = banner.querySelector('.site-update-banner__button');
-    button.addEventListener('click', function() {
-      onReload();
-    });
-
-    document.body.appendChild(banner);
-    return banner;
-  }
-
   function initVersionWatcher() {
     var versionPath = window.__BLOG_VERSION_PATH__;
     if (!versionPath || !window.fetch) return;
 
     var currentVersion = window.__BLOG_CURRENT_VERSION__ || null;
-    var banner = null;
     var timer = null;
-    var visible = false;
 
-    var showBanner = function(nextVersion) {
-      if (visible) return;
-      visible = true;
-      banner = banner || createUpdateBanner(function() {
-        var url = new URL(window.location.href);
-        url.searchParams.set('_reload', Date.now().toString());
-        window.location.replace(url.toString());
-      });
-      banner.hidden = false;
-      banner.dataset.version = nextVersion;
+    var reloadIfNeeded = function(nextVersion) {
+      var reloadKey = 'blog-reloaded-for-version';
+      var reloadedVersion = window.sessionStorage.getItem(reloadKey);
+      if (reloadedVersion === nextVersion) return;
+
+      window.sessionStorage.setItem(reloadKey, nextVersion);
+
+      var url = new URL(window.location.href);
+      url.searchParams.set('_reload', Date.now().toString());
+      window.location.replace(url.toString());
     };
 
     var checkVersion = function() {
@@ -51,7 +31,7 @@
           if (!payload || !payload.version) return;
 
           if (currentVersion && payload.version !== currentVersion) {
-            showBanner(payload.version);
+            reloadIfNeeded(payload.version);
             return;
           }
 
