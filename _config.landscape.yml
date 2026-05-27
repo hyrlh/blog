@@ -1,7 +1,6 @@
 menu:
   首页: /
   归档: /archives
-  搜索: /search/
 
 rss: /atom.xml
 banner: "images/xilian.jpg"
