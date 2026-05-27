@@ -1,4 +1,78 @@
 (function() {
+  var CHECK_INTERVAL_MS = 60 * 1000;
+
+  function createUpdateBanner(onReload) {
+    var banner = document.createElement('div');
+    banner.className = 'site-update-banner';
+    banner.hidden = true;
+    banner.innerHTML = [
+      '<span class="site-update-banner__text">页面有更新。</span>',
+      '<button class="site-update-banner__button" type="button">点击刷新</button>'
+    ].join('');
+
+    var button = banner.querySelector('.site-update-banner__button');
+    button.addEventListener('click', function() {
+      onReload();
+    });
+
+    document.body.appendChild(banner);
+    return banner;
+  }
+
+  function initVersionWatcher() {
+    var versionPath = window.__BLOG_VERSION_PATH__;
+    if (!versionPath || !window.fetch) return;
+
+    var currentVersion = null;
+    var banner = null;
+    var timer = null;
+    var visible = false;
+
+    var showBanner = function(nextVersion) {
+      if (visible) return;
+      visible = true;
+      banner = banner || createUpdateBanner(function() {
+        var url = new URL(window.location.href);
+        url.searchParams.set('_reload', Date.now().toString());
+        window.location.replace(url.toString());
+      });
+      banner.hidden = false;
+      banner.dataset.version = nextVersion;
+    };
+
+    var checkVersion = function() {
+      var requestUrl = versionPath + '?t=' + Date.now();
+      return window.fetch(requestUrl, { cache: 'no-store' })
+        .then(function(response) {
+          if (!response.ok) throw new Error('version fetch failed');
+          return response.json();
+        })
+        .then(function(payload) {
+          if (!payload || !payload.version) return;
+
+          if (currentVersion === null) {
+            currentVersion = payload.version;
+            return;
+          }
+
+          if (payload.version !== currentVersion) {
+            showBanner(payload.version);
+          }
+        })
+        .catch(function() {
+          return null;
+        });
+    };
+
+    checkVersion().then(function() {
+      timer = window.setInterval(checkVersion, CHECK_INTERVAL_MS);
+    });
+
+    window.addEventListener('beforeunload', function() {
+      if (timer) window.clearInterval(timer);
+    });
+  }
+
   function initGiscus() {
     var container = document.querySelector('.giscus');
     if (!container || typeof window.__BLOG_GISCUS__ === 'undefined') return;
@@ -54,6 +128,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', function() {
+    initVersionWatcher();
     initGiscus();
     initDocsTreeState();
   });
