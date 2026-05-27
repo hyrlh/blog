@@ -27,11 +27,32 @@
         <% if (theme.rss){ %>
           <a class="nav-icon" href="<%- url_for(theme.rss) %>" title="<%= __('rss_feed') %>"><span class="fa fa-rss"></span></a>
         <% } %>
-        <a class="nav-icon nav-search-btn" title="<%= __('search') %>"><span class="fa fa-search"></span></a>
+        <a class="nav-icon nav-search-btn" title="<%= __('search') %>" role="button" tabindex="0"><span class="fa fa-search"></span></a>
       </nav>
-      <div id="search-form-wrap">
-        <%- search_form({button: '&#xF002;', text: __('search')}) %>
-      </div>
     </div>
   </div>
 </header>
+
+<div id="docs-search-modal" class="docs-search-modal" aria-hidden="true">
+  <div class="docs-search-backdrop"></div>
+  <div class="docs-search-dialog" role="dialog" aria-modal="true" aria-label="站内搜索">
+    <div class="docs-search-head">
+      <div>
+        <p class="docs-search-kicker">站内搜索</p>
+        <h3 class="docs-search-title">搜索文章与正文</h3>
+      </div>
+      <button class="docs-search-close" type="button" aria-label="关闭搜索">
+        <span class="fa fa-times"></span>
+      </button>
+    </div>
+    <div class="docs-search-body">
+      <input
+        class="docs-search-input"
+        data-docs-search-input
+        type="search"
+        placeholder="输入关键词，例如 C++、类、数据类型"
+      >
+      <div class="docs-search-results" data-docs-search-results></div>
+    </div>
+  </div>
+</div>

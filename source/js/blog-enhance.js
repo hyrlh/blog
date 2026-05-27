@@ -43,11 +43,18 @@
   }
 
   function initLocalSearch() {
-    var pageSearch = document.querySelector('[data-local-search-page]');
-    if (!pageSearch || typeof LocalSearch === 'undefined') return;
+    if (typeof LocalSearch === 'undefined') return;
 
-    var input = document.querySelector('[data-local-search-input]');
-    var results = document.querySelector('[data-local-search-results]');
+    var pageSearch = document.querySelector('[data-local-search-page]');
+    var docsSearchInput = document.querySelector('[data-docs-search-input]');
+    var docsSearchResults = document.querySelector('[data-docs-search-results]');
+    var pageSearchInput = document.querySelector('[data-local-search-input]');
+    var pageSearchResults = document.querySelector('[data-local-search-results]');
+
+    if (!pageSearch && !docsSearchInput) return;
+
+    var input = pageSearch ? pageSearchInput : docsSearchInput;
+    var results = pageSearch ? pageSearchResults : docsSearchResults;
     if (!input || !results) return;
 
     var searchEngine = new LocalSearch({
@@ -94,6 +101,62 @@
     renderEmpty('输入关键词后开始搜索。');
   }
 
+  function initSearchModal() {
+    var modal = document.getElementById('docs-search-modal');
+    var trigger = document.querySelector('.nav-search-btn');
+    var closeBtn = document.querySelector('.docs-search-close');
+    var backdrop = document.querySelector('.docs-search-backdrop');
+    var input = document.querySelector('[data-docs-search-input]');
+    if (!modal || !trigger || !closeBtn || !backdrop || !input) return;
+
+    var openModal = function() {
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      window.setTimeout(function() {
+        input.focus();
+      }, 30);
+    };
+
+    var closeModal = function() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+    };
+
+    trigger.addEventListener('click', function(event) {
+      event.preventDefault();
+      openModal();
+    });
+
+    trigger.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openModal();
+      }
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+
+      var activeTag = document.activeElement && document.activeElement.tagName;
+      var isTyping = activeTag === 'INPUT' || activeTag === 'TEXTAREA';
+
+      if (!isTyping && event.key === '/') {
+        event.preventDefault();
+        openModal();
+      }
+
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        openModal();
+      }
+    });
+  }
+
   function initDocsTreeState() {
     var treeItems = document.querySelectorAll('.docs-tree-category');
     if (!treeItems.length) return;
@@ -117,5 +180,6 @@
     initGiscus();
     initLocalSearch();
     initDocsTreeState();
+    initSearchModal();
   });
 })();
