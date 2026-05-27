@@ -36,9 +36,7 @@ function renderDir(node, currentPath, level) {
 <% var docsTree = build_docs_tree(site.posts); %>
 
 <aside class="docs-nav">
-  <div class="widget-wrap docs-nav-wrap">
-    <h3 class="widget-title">目录</h3>
-    <div class="widget docs-nav-panel">
+  <div class="docs-nav-panel">
     <nav class="docs-tree">
       <ul class="docs-tree-root">
         <% docsTree.dirs.forEach(function(dir){ %>
@@ -52,6 +50,5 @@ function renderDir(node, currentPath, level) {
         <% }) %>
       </ul>
     </nav>
-    </div>
   </div>
 </aside>
