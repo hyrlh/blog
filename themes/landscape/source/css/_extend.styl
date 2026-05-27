@@ -130,9 +130,11 @@ $base-style
   flex: 0 0 280px
   min-width: 0
 
+.docs-nav-wrap
+  margin: 0
+
 .docs-nav-panel
-  @extend $block
-  padding: 1.25rem 1rem
+  padding: 15px
   position: sticky
   top: 20px
   max-height: calc(100vh - 40px)
@@ -143,63 +145,54 @@ $base-style
   margin: 0
   padding: 0
 
-.docs-tree-category
-  border-top: 1px solid #eef2f7
-  padding-top: 0.8rem
-  margin-top: 0.8rem
+.docs-tree-dir
+  margin-top: 0.35rem
   &:first-child
-    border-top: none
-    padding-top: 0
     margin-top: 0
-  &.is-active summary
-    background: #eff6ff
 
-.docs-tree-category details
+.docs-tree-dir details
   display: block
 
-.docs-tree-category summary
+.docs-tree-dir summary
   list-style: none
   display: flex
-  align-items: center
-  justify-content: space-between
-  gap: 0.6rem
-  padding: 0.55rem 0.65rem
-  border-radius: 8px
+  align-items: baseline
+  gap: 0.35rem
+  padding: 0.15rem 0
   cursor: pointer
-  transition: background 0.2s ease
   &::-webkit-details-marker
-    display: none
-  &:hover
-    background: #f8fafc
-  .docs-tree-category-label
-    color: #334155
-    font-weight: 600
-    flex: 1
+    margin-right: 0.25rem
+  .docs-tree-dir-label
+    color: color-link
+    text-decoration: none
+    font-weight: normal
+  &:hover .docs-tree-dir-label
+    text-decoration: underline
   span
-    color: #94a3b8
-    font-size: 0.8rem
+    color: color-grey
+    font-size: 0.85em
 
-.docs-tree-posts
+.docs-tree-children
   list-style: none
-  margin: 0.5rem 0 0
-  padding: 0 0 0 0.5rem
+  margin: 0 0 0 20px
+  padding: 0
 
 .docs-tree-post
-  margin: 0.2rem 0
+  margin: 0.15rem 0
   a
-    display: block
-    padding: 0.45rem 0.7rem
-    border-radius: 7px
-    color: #475569
+    display: inline
+    padding: 0
+    color: color-link
     text-decoration: none
-    line-height: 1.55
+    line-height: line-height
     &:hover
-      background: #f8fafc
-      color: color-link
+      text-decoration: underline
   &.is-current a
-    background: #e0f2fe
-    color: #0369a1
+    color: color-link
     font-weight: 600
+
+.docs-tree-level-0 > details > summary
+  padding-top: 0
 
 .docs-overview-panel
   @extend $block
@@ -292,6 +285,13 @@ $base-style
     color: #94a3b8
     white-space: nowrap
     font-size: 0.84rem
+
+.docs-directory-block
+  margin-top: 0.9rem
+  background: #fbfdff
+
+.docs-directory-children
+  margin-top: 0.9rem
 
 .docs-empty
   margin: 0
