@@ -1,18 +1,3 @@
-<section class="docs-overview-panel">
-  <p class="docs-overview-kicker">文档首页</p>
-  <h2 class="docs-overview-title"><%= config.title %></h2>
-  <p class="docs-overview-summary"><%= config.description %></p>
-</section>
-
-<section class="docs-overview-panel">
-  <h3 class="docs-overview-heading">阅读方式</h3>
-  <p class="docs-overview-text">左侧是目录树，可以按分类展开文章列表。点击文章标题后，在右侧阅读具体内容。</p>
-  <div class="docs-overview-links">
-    <a href="<%- url_for('/archives/') %>">查看全部归档</a>
-    <a href="<%- url_for('/search/') %>">搜索内容</a>
-  </div>
-</section>
-
 <% site.categories.sort('name').each(function(category){ %>
   <section class="docs-overview-panel docs-category-block">
     <div class="docs-category-head">
