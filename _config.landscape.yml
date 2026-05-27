@@ -28,7 +28,6 @@ recent_posts_limits: 5
 
 google_analytics:
 gauges_analytics:
-favicon: /favicon.png
 twitter:
 fb_admins:
 fb_app_id:
