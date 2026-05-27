@@ -23,7 +23,7 @@
     var versionPath = window.__BLOG_VERSION_PATH__;
     if (!versionPath || !window.fetch) return;
 
-    var currentVersion = null;
+    var currentVersion = window.__BLOG_CURRENT_VERSION__ || null;
     var banner = null;
     var timer = null;
     var visible = false;
@@ -50,14 +50,12 @@
         .then(function(payload) {
           if (!payload || !payload.version) return;
 
-          if (currentVersion === null) {
-            currentVersion = payload.version;
+          if (currentVersion && payload.version !== currentVersion) {
+            showBanner(payload.version);
             return;
           }
 
-          if (payload.version !== currentVersion) {
-            showBanner(payload.version);
-          }
+          currentVersion = payload.version;
         })
         .catch(function() {
           return null;

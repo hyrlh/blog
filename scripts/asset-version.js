@@ -8,6 +8,10 @@ hexo.extend.helper.register('versioned_asset', function(path) {
   return `${resolved}${separator}v=${assetVersion}`;
 });
 
+hexo.extend.helper.register('site_version', function() {
+  return assetVersion;
+});
+
 hexo.extend.generator.register('version_manifest', function() {
   return {
     path: 'version.json',

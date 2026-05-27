@@ -38,6 +38,7 @@
   <% } %>
   <%- css('https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css') %>
   <script>
+    window.__BLOG_CURRENT_VERSION__ = '<%= site_version() %>';
     window.__BLOG_VERSION_PATH__ = '<%- url_for("version.json") %>';
     window.__BLOG_GISCUS__ = {
       repo: '<%= config.giscus && config.giscus.repo ? config.giscus.repo : "" %>',
