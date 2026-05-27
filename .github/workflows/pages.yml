@@ -33,6 +33,14 @@ jobs:
 
       - name: Build site
         run: npm run build
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+
+      - name: Verify generated assets
+        run: |
+          test -s public/css/style.css
+          test -s public/js/script.js
+          test -s public/js/search.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

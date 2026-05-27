@@ -13,15 +13,15 @@
 </script>
 <% } %>
 
-<%- js('js/jquery-3.6.4.min.js') %>
+<script src="<%- versioned_asset('js/jquery-3.6.4.min.js') %>"></script>
 
 <% if (theme.fancybox){ %>
-  <%- js('fancybox/jquery.fancybox.min.js') %>
+  <script src="<%- versioned_asset('fancybox/jquery.fancybox.min.js') %>"></script>
 <% } %>
 
-<%- js('js/script') %>
-<%- js('js/search') %>
-<%- js('js/blog-enhance') %>
+<script src="<%- versioned_asset('js/script.js') %>"></script>
+<script src="<%- versioned_asset('js/search.js') %>"></script>
+<script src="<%- versioned_asset('js/blog-enhance.js') %>"></script>
 <%- partial('gauges-analytics') %>
 
 <% if(theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
