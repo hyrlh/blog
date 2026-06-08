@@ -86,6 +86,10 @@ $base-style
   width: 280px
   flex: 0 0 280px
   min-width: 0
+  @media mq-tablet
+    width: auto
+  @media mq-mobile
+    width: auto
 
 .docs-nav-panel
   @extend $block
@@ -94,6 +98,12 @@ $base-style
   top: 20px
   max-height: calc(100vh - 40px)
   overflow: auto
+  @media mq-tablet
+    position: static
+    max-height: none
+  @media mq-mobile
+    position: static
+    max-height: none
 
 .docs-tree-root
   list-style: none
@@ -172,6 +182,64 @@ $base-style
 .docs-tree-level-4 > a,
 .docs-tree-level-4 > details > summary
   margin-left: 1.9rem
+
+.article-toc-section
+  margin-top: 1rem
+  padding-top: 1rem
+  border-top: 1px solid #e5e7eb
+
+.article-toc-title
+  margin: 0 0 0.55rem
+  padding: 0 0.35rem
+  color: #64748b
+  font-size: 0.78rem
+  font-weight: 700
+  letter-spacing: 0
+
+.article-toc,
+.article-toc-child
+  list-style: none
+  margin: 0
+  padding: 0
+
+.article-toc-child
+  margin-top: 0.2rem
+
+.article-toc-item
+  margin: 0.12rem 0
+
+.article-toc-link
+  display: block
+  border-left: 2px solid transparent
+  padding: 0.38rem 0.5rem
+  color: #5f6f83
+  font-size: 0.86rem
+  line-height: 1.45
+  text-decoration: none
+  border-radius: 0 6px 6px 0
+  &:hover
+    color: color-link
+    background: #f7fafc
+  &.is-active
+    border-left-color: color-link
+    background: #eef8fc
+    color: #0369a1
+    font-weight: 600
+
+.article-toc-level-2 > .article-toc-link
+  padding-left: 0.55rem
+
+.article-toc-level-3 > .article-toc-link
+  padding-left: 1.05rem
+
+.article-toc-level-4 > .article-toc-link
+  padding-left: 1.55rem
+
+.article-toc-level-5 > .article-toc-link
+  padding-left: 2.05rem
+
+.article-toc-level-6 > .article-toc-link
+  padding-left: 2.55rem
 
 .docs-overview-panel
   @extend $block

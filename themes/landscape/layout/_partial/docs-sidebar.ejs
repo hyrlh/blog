@@ -33,7 +33,24 @@ function renderDir(node, currentPath, level) {
   </li>
 <% } %>
 
-<% var docsTree = build_docs_tree(site.posts); %>
+<%
+var docsTree = build_docs_tree(site.posts);
+var articleToc = '';
+
+if (is_post() && page.content) {
+  articleToc = toc(page.content, {
+    min_depth: 1,
+    max_depth: 6,
+    list_number: false,
+    class: 'article-toc',
+    class_item: 'article-toc-item',
+    class_link: 'article-toc-link',
+    class_text: 'article-toc-text',
+    class_child: 'article-toc-child',
+    class_level: 'article-toc-level'
+  });
+}
+%>
 
 <aside class="docs-nav">
   <div class="docs-nav-panel">
@@ -50,5 +67,13 @@ function renderDir(node, currentPath, level) {
         <% }) %>
       </ul>
     </nav>
+    <% if (articleToc) { %>
+      <section class="article-toc-section" aria-labelledby="article-toc-title">
+        <h2 id="article-toc-title" class="article-toc-title">本文目录</h2>
+        <nav class="article-toc-nav" aria-label="本文目录">
+          <%- articleToc %>
+        </nav>
+      </section>
+    <% } %>
   </div>
 </aside>
